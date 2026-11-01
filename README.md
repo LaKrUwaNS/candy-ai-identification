@@ -13,8 +13,15 @@ Candy AI is an enterprise-grade Computer Vision and Artificial Intelligence web 
 
 ## 📸 Application Visual Walkthrough
 
-### 1. Candy Image Detection & Counting Interface
-🔗 **Direct Reference:** [Detect.png - Google Drive](https://drive.google.com/file/d/1tNPqEq-_Odg7aLU5CVdyNejdtXamsJrL/view?usp=drive_open)
+### 1. Candy Image Detection & Counting Interface (`Detect.png`)
+
+![Candy Detection Interface](https://lh3.googleusercontent.com/d/1tNPqEq-_Odg7aLU5CVdyNejdtXamsJrL)
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1tNPqEq-_Odg7aLU5CVdyNejdtXamsJrL/view?usp=drive_open" target="_blank">
+    <b>🔍 Open Full Resolution [Detect.png] on Google Drive</b>
+  </a>
+</p>
 
 *The Candy Detection module delivers high-accuracy multi-object inference, automated brand identification, bounding box localization, and inventory counting reports.*
 
@@ -29,8 +36,15 @@ Candy AI is an enterprise-grade Computer Vision and Artificial Intelligence web 
 
 ---
 
-### 2. Executive Analytics Dashboard
-🔗 **Direct Reference:** [Dashboard.png - Google Drive](https://drive.google.com/file/d/1OPKcI8Pc2g8_gHudDHMhw_f7TCaXScm8/view)
+### 2. Executive Analytics Dashboard (`Dashboard.png`)
+
+![Executive Analytics Dashboard](https://lh3.googleusercontent.com/d/1OPKcI8Pc2g8_gHudDHMhw_f7TCaXScm8)
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1OPKcI8Pc2g8_gHudDHMhw_f7TCaXScm8/view" target="_blank">
+    <b>📊 Open Full Resolution [Dashboard.png] on Google Drive</b>
+  </a>
+</p>
 
 *The Executive Dashboard computes real-time business and session statistics dynamically derived from live model detections.*
 
@@ -55,6 +69,7 @@ The codebase is engineered with strict separation of business logic, presentatio
 CandyDetection/
 │
 ├── app.py                      # Main entrypoint, CSS injection, and multi-page routing
+├── main.py                     # Convenience launcher script
 │
 ├── Model/
 │   └── best.pt                 # Existing custom YOLOv8n weights (20 classes)
@@ -102,8 +117,7 @@ CandyDetection/
 │
 ├── assets/
 │   ├── logo.png                # Candy AI high-resolution brand badge
-│   ├── styles.css              # Modern AI dashboard custom styling
-│   └── style.css               # Legacy alias stylesheet
+│   └── styles.css              # Modern AI dashboard custom styling
 │
 ├── tests/
 │   ├── __init__.py
@@ -118,7 +132,7 @@ CandyDetection/
 ├── .gitignore                  # Comprehensive Python & Streamlit gitignore
 ├── LICENSE                     # MIT License
 ├── requirements.txt            # Dependency specification
-└── main.py                     # Convenience launcher script
+└── README.md                   # Complete documentation
 ```
 
 ---
@@ -193,7 +207,7 @@ http://localhost:8501
 
 ## 🧪 Automated Testing Suite
 
-The project includes 33 modular unit and integration tests covering validators, image normalization, counting logic, data classes, and YOLO model inference:
+The project includes 23 modular unit and integration tests covering validators, image normalization, counting logic, data classes, and YOLO model inference:
 
 ```powershell
 # Run all unit and integration tests
