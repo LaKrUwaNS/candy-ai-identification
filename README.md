@@ -5,21 +5,121 @@
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-EE4C2C)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.36+-FF4B4B)
-![License](https://img.shields.io/badge/License-Proprietary-0F172A)
+![License](https://img.shields.io/badge/License-MIT-0F172A)
 
-Candy AI is an enterprise-grade Computer Vision and Artificial Intelligence web application powered by **Ultralytics YOLOv8** and **Streamlit**. It provides automated multi-object localization, brand categorization, real-time quantity counting, and audit reporting across **20 distinct confectionery categories** using an existing trained custom model (`Model/best.pt`).
+Candy AI is an enterprise-grade Computer Vision and Artificial Intelligence web application powered by **Ultralytics YOLOv8** and **Streamlit**. It provides automated multi-object localization, brand categorization, real-time quantity counting, and audit reporting across **20 distinct confectionery categories** using your existing trained custom model (`Model/best.pt`).
 
 ---
 
-## 📌 Key Capabilities
+## 📸 Application Visual Walkthrough
 
-- **🎯 Multi-Object Candy Detection:** Detects, classifies, and bounds multiple candies in a single image with bounding boxes, distinct color codes, and confidence scores.
-- **🔢 Automated Candy Counting Report:** Dynamic category aggregation with formatted ASCII reports and interactive Plotly distribution charts.
-- **📊 Real-Time Executive Dashboard:** Live session analytics, total scans, most frequent candy, class coverage, and activity timelines without hardcoded or fake statistics.
-- **📹 Real-Time Webcam Recognition:** Dual-mode video processing supporting continuous live OpenCV streams (with Start/Stop controls and FPS counters) and browser snapshot recognition.
-- **🍬 20-Category Product Directory:** Comprehensive catalog of all 20 classes mapped directly from `model.names` with live session detection counters.
-- **📜 Session Detection History & Audit:** Persistent session-based history tracking with timestamps, thumbnails, full image drill-downs, and CSV data export.
-- **⚡ Hardware Acceleration & CPU Fallback:** Automatic CUDA GPU detection with fallback to CPU.
+### 1. Candy Image Detection & Counting Interface
+🔗 **Direct Reference:** [Detect.png - Google Drive](https://drive.google.com/file/d/1tNPqEq-_Odg7aLU5CVdyNejdtXamsJrL/view?usp=drive_open)
+
+*The Candy Detection module delivers high-accuracy multi-object inference, automated brand identification, bounding box localization, and inventory counting reports.*
+
+- **Interactive Inference Controls:** Dynamic sidebar adjustment for Confidence Threshold (default `0.25`), IoU Threshold (default `0.45`), and Input Dimension (`640px`).
+- **High-Contrast Bounding Boxes:** 20 distinct accessible colors mapped to classes with label pills (`#ID CategoryName (Confidence %)`).
+- **Tabbed Visualizations:**
+  - *Annotated Detections:* Localized objects with bounding boxes and labels.
+  - *Side-by-Side Comparison:* Direct side-by-side view of raw input versus model annotations.
+  - *Original Image:* Full resolution unprocessed input.
+- **Dynamic Candy Counting Report:** Dynamic category tally with formatted ASCII summaries and horizontal frequency bar charts.
+- **Object Localization Table:** Comprehensive coordinate table recording `Detection ID`, `Category`, `Class ID`, `Confidence Score`, `Box (x1, y1)`, `Box (x2, y2)`, and `Box Dimensions (W×H)` with one-click CSV export.
+
+---
+
+### 2. Executive Analytics Dashboard
+🔗 **Direct Reference:** [Dashboard.png - Google Drive](https://drive.google.com/file/d/1OPKcI8Pc2g8_gHudDHMhw_f7TCaXScm8/view)
+
+*The Executive Dashboard computes real-time business and session statistics dynamically derived from live model detections.*
+
+- **Metric KPI Cards:**
+  - **Images Processed:** Total scans analyzed during the session.
+  - **Candies Detected:** Cumulative count of all localized candy items.
+  - **Unique Categories:** Active category breadth discovered (out of 20 possible classes).
+  - **Most Frequent Candy:** Most prevalent confectionery brand detected with exact instance count.
+- **Interactive Distribution Visualizations:**
+  - *Category Distribution Donut:* Interactive Plotly donut chart highlighting class proportions.
+  - *Category Frequency Breakdown:* Horizontal bar chart ranking detected brands.
+  - *Activity Timeline:* Chronological volume curve plotting detection count per scan.
+- **Recent Detection Activity Table:** Real-time audit log with Scan IDs, timestamps, image filenames, identified items, and inference latency in milliseconds.
+
+---
+
+## 🏛️ Refactored Architecture & Separation of Concerns
+
+The codebase is engineered with strict separation of business logic, presentation components, data modeling, and utility layers:
+
+```text
+CandyDetection/
+│
+├── app.py                      # Main entrypoint, CSS injection, and multi-page routing
+│
+├── Model/
+│   └── best.pt                 # Existing custom YOLOv8n weights (20 classes)
+│
+├── config/
+│   ├── __init__.py             # Configuration package exports
+│   └── settings.py             # Centralized constants, paths, thresholds, and color palettes
+│
+├── core/
+│   ├── __init__.py             # Core package exports
+│   ├── model_loader.py         # Framework-agnostic model loading & device discovery
+│   ├── detector.py             # Dataclasses (DetectionItem, DetectionResult) & bounding boxes
+│   ├── image_processor.py      # Input normalization, format conversions, thumbnails
+│   └── candy_counter.py        # Tallying, ranking, and ASCII report formatting
+│
+├── services/
+│   ├── __init__.py             # Services package exports
+│   ├── detection_service.py    # Detection orchestration lifecycle
+│   ├── statistics_service.py   # High-level session metrics and time-series extraction
+│   ├── history_service.py      # Session state audit logging, caching, and CSV export
+│   └── camera_service.py       # OpenCV webcam management and rolling FPS tracking
+│
+├── components/
+│   ├── __init__.py             # Reusable UI component exports
+│   ├── header.py               # Reusable gradient page header
+│   ├── sidebar.py              # Centralized branding, controls, and session snapshot
+│   ├── metric_cards.py         # Styled responsive KPI card containers
+│   ├── detection_viewer.py     # Image tabs, report boxes, and coordinates tables
+│   └── charts.py               # Interactive Plotly donut, bar, and timeline charts
+│
+├── pages/
+│   ├── dashboard.py            # Module A: Executive Dashboard & live analytics
+│   ├── candy_detection.py      # Module B, C, D: Image upload, inference, & counting
+│   ├── realtime_detection.py   # Module E: Continuous webcam and snapshot detection
+│   ├── candy_categories.py     # Module 7: 20-category directory & scan tallies
+│   ├── detection_history.py    # Module F: Session audit logs and detail drill-down
+│   └── about_model.py          # Module 8: YOLOv8 technical specifications
+│
+├── utils/
+│   ├── __init__.py             # Utility package exports
+│   ├── file_handler.py         # Path resolution, model verification, size helpers
+│   ├── image_utils.py          # PIL/OpenCV array conversions & encoding
+│   ├── validators.py           # Threshold boundaries, image dimensions, byte validation
+│   └── helpers.py              # Formats, UUID generators, timestamps
+│
+├── assets/
+│   ├── logo.png                # Candy AI high-resolution brand badge
+│   ├── styles.css              # Modern AI dashboard custom styling
+│   └── style.css               # Legacy alias stylesheet
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_detector.py        # Dataclass, mock prediction, and model integration tests
+│   ├── test_image_processor.py # Array, format, byte, and thumbnail tests
+│   ├── test_candy_counter.py   # Counting, ranking, and ASCII report tests
+│   └── test_validators.py      # File format, dimension, byte, and threshold tests
+│
+├── .streamlit/
+│   └── config.toml             # Streamlit server and primary orange/yellow theme config
+│
+├── .gitignore                  # Comprehensive Python & Streamlit gitignore
+├── LICENSE                     # MIT License
+├── requirements.txt            # Dependency specification
+└── main.py                     # Convenience launcher script
+```
 
 ---
 
@@ -52,44 +152,6 @@ Candy AI is an enterprise-grade Computer Vision and Artificial Intelligence web 
 
 ---
 
-## 🗂️ Project Architecture
-
-```text
-Candy-AI/
-│
-├── app.py                      # Main entrypoint and navigation router
-│
-├── Model/
-│   └── best.pt                 # Existing trained YOLOv8 model weights
-│
-├── utils/
-│   ├── __init__.py             # Public package exports
-│   ├── detector.py             # Model loading, YOLO inference, and bounding boxes
-│   ├── image_processing.py     # Image validation, conversions, and thumbnails
-│   ├── statistics.py           # Metrics calculation and Plotly visualization
-│   └── history.py              # Session history manager and CSV export
-│
-├── pages/
-│   ├── dashboard.py            # Module A: Executive Dashboard & live analytics
-│   ├── candy_detection.py      # Module B, C, D: Image upload, inference, & counting
-│   ├── realtime_detection.py   # Module E: Continuous webcam and snapshot detection
-│   ├── candy_categories.py     # Module 7: 20-category directory & scan tallies
-│   ├── detection_history.py    # Module F: Session audit logs and detail drill-down
-│   └── about_model.py          # Module 8: YOLOv8 technical specifications
-│
-├── assets/
-│   ├── logo.png                # Candy AI high-resolution brand badge
-│   └── style.css               # Modern AI dashboard custom styling
-│
-├── tests/
-│   └── test_candy_ai.py        # Automated test suite (10 unit/integration tests)
-│
-├── requirements.txt            # Python package dependencies
-└── README.md                   # Complete documentation
-```
-
----
-
 ## 💻 Windows Installation & Execution
 
 ### 1. Prerequisites
@@ -97,14 +159,11 @@ Candy-AI/
 - Windows 10 or Windows 11 (64-bit)
 - Python 3.10+ installed and added to `PATH`
 - Web browser (Chrome, Edge, Firefox)
-- Webcam (optional, for real-time video detection)
 
 ### 2. Environment Setup
 
-Open PowerShell or Command Prompt in the project folder:
-
 ```powershell
-# Navigate to project directory
+# Open terminal in project directory
 cd "c:\Users\Lenovo\Documents\Work Hub\OpenCV\CandyDetection"
 
 # Create a virtual environment
@@ -122,8 +181,9 @@ pip install -r requirements.txt
 ```powershell
 streamlit run app.py
 ```
+*(Or alternatively run `python main.py`)*
 
-The application will start and open automatically in your default browser at:
+The application will start on:
 
 ```text
 http://localhost:8501
@@ -131,41 +191,13 @@ http://localhost:8501
 
 ---
 
-## 🧪 Testing Instructions
+## 🧪 Automated Testing Suite
 
-Verify model performance across various test cases:
-
-### Test Case 1: Single Candy Image
-- Upload an image containing a single candy (e.g., one Snickers bar).
-- **Expected Result:** Exactly 1 bounding box with high confidence (`> 80%`), Category = `snickers`, Total Candies = 1.
-
-### Test Case 2: Multi-Category Scene
-- Upload an image containing multiple candy varieties (e.g., Bounty, Mars, Skittles).
-- **Expected Result:** Each distinct candy gets a distinct color-coded bounding box. The counting report lists breakdown per brand.
-
-### Test Case 3: Multiple Candies of the Same Category
-- Upload an image with 3–5 packages of MMs or Twix.
-- **Expected Result:** Separate bounding boxes for each package. Category count accurately reflects the total quantity.
-
-### Test Case 4: Non-Candy / Negative Image
-- Upload a scene without any confectionery (e.g., empty table, office desk, landscape).
-- **Expected Result:** 0 objects detected. The application cleanly informs: *"Zero Objects Detected: Try lowering the Confidence Threshold slider in the sidebar"*. No crashes or phantom detections.
-
-### Test Case 5: Visually Similar Candy Packages
-- Upload images with similar variants (e.g., `Twix_caramel`, `Twix_clasic`, and `Twix_white` or `snickers` vs `snickers_creamy`).
-- **Expected Result:** YOLOv8 differentiates between packaging variants based on distinct class weights.
-
-### Test Case 6: Real-Time Webcam
-- Navigate to **📹 Real-Time Detection** and click **▶️ Start Camera**.
-- Hold a candy in front of the lens.
-- **Expected Result:** Live bounding box tracks the candy with live FPS display and dynamic count updates. Click **⏹️ Stop Camera** to safely release the device.
-
-### Running Automated Test Suite
-
-To run the automated verification suite:
+The project includes 33 modular unit and integration tests covering validators, image normalization, counting logic, data classes, and YOLO model inference:
 
 ```powershell
-.\venv\Scripts\python.exe -m unittest tests/test_candy_ai.py
+# Run all unit and integration tests
+.\venv\Scripts\python.exe -m unittest discover tests
 ```
 
 ---
@@ -180,33 +212,7 @@ To run the automated verification suite:
 
 ---
 
-## 📜 Candy Detection Report Sample Output
-
-When processing an image with multiple candies, the system generates:
-
-```text
-========================================
-        CANDY DETECTION REPORT          
-========================================
-
-Bounty             : 2
-Mars               : 1
-Snickers           : 3
-Skittles           : 4
-Twix_clasic        : 2
-
-----------------------------------------
-Total Candies      : 12
-Unique Categories  : 5
-========================================
-```
-
----
-
 ## 📄 License & Attribution
 
 Designed and engineered for Candy AI Object Detection applications using Ultralytics YOLOv8 and Streamlit.
-All rights reserved.
-
-#   c a n d y - a i - i d e n t i f i c a t i o n  
- 
+Licensed under the [MIT License](LICENSE).

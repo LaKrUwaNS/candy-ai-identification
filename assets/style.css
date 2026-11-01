@@ -1,0 +1,239 @@
+/* Candy AI - Modern AI Dashboard Custom Stylesheet */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    --primary-orange: #FF6B35;
+    --primary-orange-hover: #E85924;
+    --primary-yellow: #F59E0B;
+    --accent-amber: #FBBF24;
+    --dark-navy: #0F172A;
+    --navy-surface: #1E293B;
+    --slate-border: #E2E8F0;
+    --slate-light: #F8FAFC;
+    --slate-text-muted: #64748B;
+    --text-primary: #0F172A;
+}
+
+html, body, [class*="css"] {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header & Title Styling */
+.main-header-container {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    border-radius: 16px;
+    padding: 24px 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
+    color: white;
+    border-left: 6px solid var(--primary-orange);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-header-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin: 0;
+    color: #FFFFFF;
+}
+
+.main-header-subtitle {
+    font-size: 14px;
+    color: #94A3B8;
+    margin-top: 4px;
+    font-weight: 400;
+}
+
+/* Metric KPI Cards */
+.metric-card {
+    background: #FFFFFF;
+    border: 1px solid var(--slate-border);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+.metric-card-accent-orange::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FF6B35, #F59E0B);
+}
+
+.metric-card-accent-blue::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #3B82F6, #0284C7);
+}
+
+.metric-card-accent-green::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #10B981, #059669);
+}
+
+.metric-card-accent-purple::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8B5CF6, #6366F1);
+}
+
+.metric-label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--slate-text-muted);
+    margin-bottom: 6px;
+}
+
+.metric-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--dark-navy);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+}
+
+.metric-subtext {
+    font-size: 12px;
+    color: #64748B;
+    margin-top: 6px;
+}
+
+/* Candy Report Container */
+.candy-report-container {
+    background: #0F172A;
+    color: #F8FAFC;
+    font-family: 'JetBrains Mono', Consolas, monospace;
+    font-size: 13px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #334155;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+/* Category Badge Pills */
+.candy-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 4px;
+}
+
+/* Category Card for Categories Page */
+.category-card {
+    background: #FFFFFF;
+    border: 1px solid var(--slate-border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    transition: all 0.15s ease-in-out;
+}
+
+.category-card:hover {
+    border-color: var(--primary-orange);
+    box-shadow: 0 4px 8px rgba(255, 107, 53, 0.1);
+}
+
+/* Model Spec Pills */
+.spec-item {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+}
+
+.spec-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spec-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0F172A;
+    margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Sidebar Custom Details */
+[data-testid="stSidebar"] {
+    background-color: #0F172A;
+    border-right: 1px solid #1E293B;
+}
+
+[data-testid="stSidebar"] .stMarkdown,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] p {
+    color: #E2E8F0;
+}
+
+[data-testid="stSidebarNav"] span {
+    color: #F8FAFC !important;
+    font-weight: 500;
+}
+
+/* Custom button accent */
+div.stButton > button:first-child {
+    background: linear-gradient(135deg, #FF6B35 0%, #F59E0B 100%);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(255, 107, 53, 0.25);
+}
+
+div.stButton > button:first-child:hover {
+    background: linear-gradient(135deg, #E85924 0%, #D97706 100%);
+    box-shadow: 0 6px 12px -2px rgba(255, 107, 53, 0.35);
+    color: white;
+    transform: translateY(-1px);
+}
+

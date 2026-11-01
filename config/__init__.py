@@ -1,0 +1,46 @@
+"""Application configuration package for Candy AI."""
+
+from config.settings import (
+    ALLOWED_IMAGE_EXTENSIONS,
+    APP_ICON,
+    APP_SUBTITLE,
+    APP_TITLE,
+    CANDY_CLASSES,
+    CLASS_COLOR_HEX,
+    CLASS_COLOR_PALETTE,
+    DEFAULT_CONFIDENCE,
+    DEFAULT_IMAGE_SIZE,
+    DEFAULT_IOU,
+    MAX_IMAGE_SIZE_BYTES,
+    MODEL_PATH,
+    PROJECT_ROOT,
+    RELATIVE_MODEL_PATH,
+    SUPPORTED_RESOLUTIONS,
+    VERSION,
+    get_color_for_class,
+    get_hex_for_class,
+    rgb_to_hex,
+)
+
+__all__ = [
+    "APP_TITLE",
+    "APP_SUBTITLE",
+    "APP_ICON",
+    "VERSION",
+    "PROJECT_ROOT",
+    "MODEL_PATH",
+    "RELATIVE_MODEL_PATH",
+    "DEFAULT_CONFIDENCE",
+    "DEFAULT_IOU",
+    "DEFAULT_IMAGE_SIZE",
+    "SUPPORTED_RESOLUTIONS",
+    "ALLOWED_IMAGE_EXTENSIONS",
+    "MAX_IMAGE_SIZE_BYTES",
+    "CANDY_CLASSES",
+    "CLASS_COLOR_PALETTE",
+    "CLASS_COLOR_HEX",
+    "get_color_for_class",
+    "get_hex_for_class",
+    "rgb_to_hex",
+]
+
